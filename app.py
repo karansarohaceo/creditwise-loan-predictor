@@ -36,7 +36,13 @@ loan_term = st.number_input("Loan Term (Months)", min_value=1)
 
 education_level = st.number_input("Education Level", min_value=0)
 
-dti_ratio = st.number_input("DTI Ratio", min_value=0.0)
+dti_ratio = st.number_input(
+    "DTI Ratio",
+    min_value=0.1,
+    max_value=0.6,
+    value=0.3,
+    step=0.01
+)
 
 credit_score = st.number_input(
     "Credit Score",
@@ -146,7 +152,10 @@ if st.button("Predict Loan Approval"):
     features_scaled = scaler.transform(features)
 
     prediction = model.predict(features_scaled)[0]
+    prob = model.predict_proba(features_scaled)[0]
 
+    st.write("Reject Probability:", round(prob[0]*100,2), "%")
+    st.write("Approve Probability:", round(prob[1]*100,2), "%")
     if prediction == 1:
         st.success("✅ Loan Approved")
     else:
