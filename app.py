@@ -156,6 +156,7 @@ if st.button("Predict Loan Approval"):
 
     st.write("Reject Probability:", round(prob[0]*100,2), "%")
     st.write("Approve Probability:", round(prob[1]*100,2), "%")
+
     if prediction == 1:
         st.success("✅ Loan Approved")
     else:
